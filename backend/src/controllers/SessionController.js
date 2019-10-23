@@ -1,4 +1,5 @@
 // INDEX, SHOW, UPDATE, STORE, DESTROYS
+
 const User = require('../models/User');
 
 module.exports = {
