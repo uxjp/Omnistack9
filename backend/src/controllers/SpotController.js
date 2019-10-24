@@ -5,7 +5,8 @@ module.exports = {
     async index(req, res) {
             const { tech } = req.query;
 
-            const spots = await Spot.find({ techs: tech });
+            const spots = await Spot.find({ techs: tech }); //mongo and string operations estudar isso
+            // everything working with a exactly match
 
             return res.json(spots);
     },

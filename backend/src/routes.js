@@ -8,11 +8,17 @@ const uploadConfig = require('./config/upload')
 const routes = express.Router();
 const upload = multer(uploadConfig);
 
+const DashboardController = require('./controllers/DashboardController');
+const BookingController = require('./controllers/BookingController');
 
 routes.post('/sessions', SessionController.store); //
 
 routes.post('/spots', upload.single('thumbnail'), SpotController.store);
 routes.get('/spots', SpotController.index);
+
+routes.get('/dashboard', DashboardController.show);
+
+routes.post('/spots/:spot_id/booking', BookingController.store); // id do spot, criar reserva dentro de um respectivo spot
 
 module.exports = routes;
   
