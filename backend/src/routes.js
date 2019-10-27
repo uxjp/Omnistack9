@@ -6,7 +6,7 @@ const multer = require('multer');
 const uploadConfig = require('./config/upload')
 
 const routes = express.Router();
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig); //docs multer
 
 const DashboardController = require('./controllers/DashboardController');
 const BookingController = require('./controllers/BookingController');
