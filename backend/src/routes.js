@@ -18,7 +18,7 @@ routes.get('/spots', SpotController.index);
 
 routes.get('/dashboard', DashboardController.show);
 
-routes.post('/spots/:spot_id/booking', BookingController.store); // id do spot, criar reserva dentro de um respectivo spot
+routes.post('/spots/:spot_id/bookings', BookingController.store); // id do spot, criar reserva dentro de um respectivo spot
 
 module.exports = routes;
   
