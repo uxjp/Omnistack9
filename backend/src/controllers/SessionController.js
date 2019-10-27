@@ -16,6 +16,7 @@ module.exports = {
 
 
         return res.json(user);
+        //tudo funcionando normal pelo jeito era um bug no insomnia
     }
 
 };
