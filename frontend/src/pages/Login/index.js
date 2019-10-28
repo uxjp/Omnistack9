@@ -16,6 +16,7 @@ export default function Login({ history }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
+    
         const response = await api.post('/sessions', { email }); 
         //base url implementada antes
 
