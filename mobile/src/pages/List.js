@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, StyleSheet, Text, Image, AsyncStorage } from "react-native";
 
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
+
+import SpotList from '../components/SpotsList';
 
 export default function List() {
     const [ techs, setTechs ] = useState([]);
@@ -19,6 +21,7 @@ export default function List() {
             <Text>
                 {techs}
             </Text>
+            {techs.map(tech => <SpotList key={tech} tech={tech} />)}
 
         </SafeAreaView>
             
