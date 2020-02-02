@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
+import { AsyncStorage } from 'react-native';
+
 
 import logo from '../assets/logo.png'
 
 import api from "../services/api";
 
 
-export default function Login() {
+export default function Login( { navigation } ) {
     const [email, setEmail] = useState('');
     const [techs, setTechs] = useState('');
 
+    // isso faz com que me app va direto para tela de lista
+    // um botao de logout é nescessario para voltar para login 
+    useEffect(() => {
+        AsyncStorage.getItem('user').then(user => {
+            if (user) {
+                navigation.navigate('List');
+            }
+        })
+    }, []);
 
     async function handleSubmit() {
+        // console.log(email);
         const response = await api.post('/sessions/', {
             email
         });
 
         const { _id } = response.data;
 
-        console.log(_id);
+        await AsyncStorage.setItem('user', _id);
+        await AsyncStorage.setItem('techs', techs);
+
+        navigation.navigate('List');
     }
 
     return (
@@ -53,11 +68,19 @@ export default function Login() {
                 <TouchableOpacity onPress={ handleSubmit } style={styles.button}>
                     <Text style={styles.buttonText}>Encontrar spots</Text>
                 </TouchableOpacity>
+                <Text style={styles.txt}> Test para texto </Text>
             </View>
         </KeyboardAvoidingView>)
 }
 
 const styles = StyleSheet.create({
+    txt:{
+        marginTop: 10,
+        textShadowColor:'#000',
+        textShadowOffset:{width: 5, height: 5},
+        textShadowRadius:10,
+    },  
+
     container: {
         flex: 1,
         justifyContent: 'center',
