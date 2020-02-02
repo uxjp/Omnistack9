@@ -14,13 +14,13 @@ export default function Login( { navigation } ) {
 
     // isso faz com que me app va direto para tela de lista
     // um botao de logout é nescessario para voltar para login 
-    // useEffect(() => {
-    //     AsyncStorage.getItem('user').then(user => {
-    //         if (user) {
-    //             navigation.navigate('List');
-    //         }
-    //     })
-    // }, []);
+    useEffect(() => {
+        AsyncStorage.getItem('user').then(user => {
+            if (user) {
+                navigation.navigate('List');
+            }
+        })
+    }, []);
 
     async function handleSubmit() {
         // console.log(email);
