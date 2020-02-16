@@ -11,15 +11,21 @@ module.exports = {
 
             const booking  = await Booking.create({  //estudar esse create e atributos
                 
-                user : user_id,
-                spot: spot_id,
-                date,
+                user : user_id, // individual whom requested the reservation
+                spot: spot_id,  // user related to this id created the spot 
+                date, 
 
             })
 
             await booking.populate('user').populate('spot').execPopulate(); //da todas asminhas informaçoes sobre 
-            // user e spot
-            // estudar isso também
+        
+            const ownerSocket = req.connectedUsers[booking.spot.user];
+
+             if (ownerSocket) {
+                 req.io.to(ownerSocket).emit('booking_request', booking);
+             }
+
+
 
             return res.json(booking);
     }

@@ -15,24 +15,6 @@ const io = socketio(server);
 
 const connectedUsers = {};
 
-io.on('connection', socket => {
-    console.log(socket.handshake.query);
-    console.log('usuario conectado', socket.id)
-
-    const { user_id } = socket.handshake.query;
-
-    connectedUsers[user_id] = socket.id; 
-    /*  
-    // setTimeout(() => {
-    //     socket.emit('hello', 'world');
-        
-    // }, 4000); // mensagem partindo do servidor
-
-    socket.on('omni', (data) => {
-        console.log(data);
-    }) 
-  */
-    });
 
 // socket nao funciona com o insomnia
 // existem ferramnetas para o Browser
@@ -41,6 +23,21 @@ io.on('connection', socket => {
 mongoose.connect('mongodb+srv://johnpnx:86909196@omni-gpz7n.mongodb.net/semana09?retryWrites=true&w=majority', {
     useNewUrlParser : true,
     useUnifiedTopology : true
+});
+
+
+io.on('connection', socket => {
+    const { user_id } = socket.handshake.query;
+
+    connectedUsers[user_id] = socket.id; 
+    });
+
+app.use((req, res, next) => {
+    req.io = io;
+
+    req.connectedUsers = connectedUsers;
+
+    return next();
 });
 
 // GET POST PUT PATCH DELETE
@@ -53,4 +50,4 @@ app.use(routes);
 
 
 
-server.listen(3333);
+server.listen(3333); 
